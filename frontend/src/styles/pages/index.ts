@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Form as Unform } from "@unform/web";
 
-export const Login = styled.div`
+export const LoginOrRegister = styled.div`
   padding: 40px 24px;
   margin: 32px 0;
   display: flex;
@@ -9,6 +9,15 @@ export const Login = styled.div`
   align-items: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
+
+  button {
+    border: none;
+    background-color: white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const Compilado = styled.div`

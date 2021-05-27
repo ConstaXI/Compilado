@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Compilado,
   Container,
   Form,
-  Login,
+  LoginOrRegister,
   People,
   Perfil,
   PerfilContainer,
@@ -15,6 +15,47 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function openRegister(): void {
+    setIsOpen(!isOpen);
+  }
+
+  function RenderRegisterOrLogin(props) {
+    const wasClicked = props.isOpen;
+
+    if(!wasClicked) {
+      return (
+        <LoginOrRegister>
+          <h1>Login</h1>
+          <Form>
+            <Input name="email" placeholder="Email" type="email" />
+            <Input name="password" placeholder="Senha" type="password" />
+            <Button name="Entrar" type="submit" />
+          </Form>
+          <p>Esqueci minha senha</p>
+          <button onClick={openRegister}><strong>Criar uma conta</strong></button>
+        </LoginOrRegister>
+      );
+    } else {
+      return (
+        <LoginOrRegister>
+          <h1>Registrar</h1>
+          <Form>
+            <Input name="first_name" placeholder="Primeiro Nome" type="emfirst_nameail" />
+            <Input name="surname" placeholder="Segundo Nome" type="surname" />
+            <Input name="email" placeholder="Email" type="email" />
+            <Input name="password" placeholder="Senha" type="password" />
+            <Input name="confirm_password" placeholder="Confirmar Senha" type="confirm_password" />
+            <Button name="Confirmar" type="submit" />
+          </Form>
+          <p>Esqueci minha senha</p>
+          <button onClick={openRegister}><strong>Criar uma conta</strong></button>
+        </LoginOrRegister>
+      );
+    }
+  }
+
   return (
     <Container>
       <People>
@@ -125,8 +166,8 @@ export default function Home() {
         </PerfilContainer>
       </People>
       <Compilado>
-        <h1 className="Compilado">Compilado</h1>
-        <Login>
+        <h1 className="Compilado">Compilado_</h1>
+        <RenderRegisterOrLogin isOpen={isOpen}>
           <h1>Login</h1>
           <Form>
             <Input name="email" placeholder="Email" type="email" />
@@ -134,8 +175,8 @@ export default function Home() {
             <Button name="Entrar" type="submit" />
           </Form>
           <p>Esqueci minha senha</p>
-          <strong>Criar uma conta</strong>
-        </Login>
+          <button onClick={openRegister}><strong>Criar uma conta</strong></button>
+        </RenderRegisterOrLogin>
       </Compilado>
     </Container>
   );
