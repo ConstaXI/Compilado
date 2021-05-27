@@ -1,28 +1,39 @@
-interface InputProps {
+import { useField } from "@unform/core";
+import { ChangeEvent, ChangeEventHandler, InputHTMLAttributes, useEffect, useRef, useState } from "react";
+
+import { Container, InputContent } from "../styles/components/input";
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   type: string;
   placeholder?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
 }
-
-import { ChangeEventHandler } from "react";
-
-import { Container, InputContent } from "../styles/components/input";
 
 export function Input({
   name,
   type,
   placeholder,
-  onChange,
 }: InputProps) {
+  const { fieldName, defaultValue, registerField } = useField(name);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: inputRef.current,
+      path: 'value',
+    });
+  }, [registerField, fieldName]);
+
   return (
     <Container>
       <InputContent>
         <input
           type={type}
           name={name}
+          defaultValue={defaultValue}
           placeholder={placeholder}
-          onChange={onChange}
+          ref={inputRef}
         />
       </InputContent>
     </Container>

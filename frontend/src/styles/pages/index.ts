@@ -54,8 +54,9 @@ export const PerfilHeader = styled.div`
 
   hr {
     width: 100%;
-    height: 3px;
-    background-color: var(--grey-800);
+    height: 2px;
+    background-color: var(--grey-100);
+    border: none;
   }
 
   h2, p {
@@ -87,12 +88,6 @@ export const PerfilText = styled.div`
 export const PerfilContainer = styled.div`
   height: 90vh;
   overflow: auto;
-
-  hr {
-    width: 100%;
-    height: 2px;
-    background-color: var(--grey-500);
-  }
 `
 
 export const Container = styled.div`
