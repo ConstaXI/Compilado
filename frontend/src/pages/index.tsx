@@ -1,6 +1,7 @@
 import React from "react";
 
 import {
+  Compilado,
   Container,
   Form,
   Login,
@@ -123,17 +124,19 @@ export default function Home() {
           </Perfil>
         </PerfilContainer>
       </People>
-
-      <Login>
-        <h1>Login</h1>
-        <Form>
-          <Input name="email" placeholder="Email" type="email" />
-          <Input name="password" placeholder="Senha" type="password" />
-          <Button name="Entrar" type="submit" />
-        </Form>
-        <p>Esqueci minha senha</p>
-        <strong>Criar uma conta</strong>
-      </Login>
+      <Compilado>
+        <h1 className="Compilado">Compilado</h1>
+        <Login>
+          <h1>Login</h1>
+          <Form>
+            <Input name="email" placeholder="Email" type="email" />
+            <Input name="password" placeholder="Senha" type="password" />
+            <Button name="Entrar" type="submit" />
+          </Form>
+          <p>Esqueci minha senha</p>
+          <strong>Criar uma conta</strong>
+        </Login>
+      </Compilado>
     </Container>
   );
 }
