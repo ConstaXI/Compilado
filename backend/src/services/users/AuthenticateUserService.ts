@@ -46,6 +46,8 @@ export default class AuthenticateUserService {
       expiresIn: authConfig.jwt.expiresIn,
     });
 
+    user.password = "";
+
     return { user, token };
   }
 }

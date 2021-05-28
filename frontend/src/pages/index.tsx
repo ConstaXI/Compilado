@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 
 import {
   Compilado,
@@ -19,7 +19,6 @@ import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 
 import api from "../services/api";
-import { useRef } from "react";
 import { FormHandles } from "@unform/core";
 
 import { IoMdArrowRoundUp, IoMdArrowRoundDown } from "react-icons/io";
@@ -40,13 +39,26 @@ export default function Home() {
     setIsOpen(!isOpen);
   }
 
-  const handleSubmit = useCallback(async (data: ICreateUserForm) => {
+  const handleRegisterSubmit = useCallback(async (data: ICreateUserForm) => {
     try {
       formRef.current?.setErrors({});
 
       console.log(data);
 
       await api.post("users", data);
+    } catch (e) {
+      console.log((e as Error).message);
+    }
+  }, []);
+
+  const handleLoginSubmit = useCallback(async (data: ICreateUserForm) => {
+    try {
+      formRef.current?.setErrors({});
+
+      console.log(data);
+
+      await api.post("auth", data);
+      window.location.href = "/test";
     } catch (e) {
       console.log((e as Error).message);
     }
@@ -59,7 +71,7 @@ export default function Home() {
       return (
         <LoginOrRegister>
           <h1>Login</h1>
-          <Form>
+          <Form onSubmit={handleLoginSubmit}>
             <Input name="email" placeholder="Email" type="email" />
             <Input name="password" placeholder="Senha" type="password" />
             <Button name="Entrar" type="submit" />
@@ -74,7 +86,7 @@ export default function Home() {
       return (
         <LoginOrRegister>
           <h1>Registrar</h1>
-          <Form ref={formRef} onSubmit={handleSubmit}>
+          <Form ref={formRef} onSubmit={handleRegisterSubmit}>
             <Input name="name" placeholder="Primeiro Nome" type="name" />
             <Input name="surname" placeholder="Segundo Nome" type="surname" />
             <Input name="email" placeholder="Email" type="email" />
