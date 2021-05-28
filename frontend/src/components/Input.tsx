@@ -1,5 +1,5 @@
 import { useField } from "@unform/core";
-import { ChangeEvent, ChangeEventHandler, InputHTMLAttributes, useEffect, useRef, useState } from "react";
+import { InputHTMLAttributes, useEffect, useRef } from "react";
 
 import { Container, InputContent } from "../styles/components/input";
 

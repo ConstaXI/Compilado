@@ -10,6 +10,10 @@ import {
   PerfilContainer,
   PerfilHeader,
   PerfilText,
+  Sugestion,
+  SugestionArrows,
+  Sugestions,
+  SugestionText,
 } from "../styles/pages";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
@@ -17,6 +21,8 @@ import { Button } from "../components/Button";
 import api from "../services/api";
 import { useRef } from "react";
 import { FormHandles } from "@unform/core";
+
+import { IoMdArrowRoundUp, IoMdArrowRoundDown } from "react-icons/io";
 
 interface ICreateUserForm {
   name: string;
@@ -34,24 +40,22 @@ export default function Home() {
     setIsOpen(!isOpen);
   }
 
-  const handleSubmit = useCallback(
-    async (data: ICreateUserForm) => {
-      try {
-        formRef.current?.setErrors({});
+  const handleSubmit = useCallback(async (data: ICreateUserForm) => {
+    try {
+      formRef.current?.setErrors({});
 
-        console.log(data);
+      console.log(data);
 
-        await api.post("users", data);
-      } catch(e) {
-        console.log((e as Error).message);
-      }
-    }, []
-  )
+      await api.post("users", data);
+    } catch (e) {
+      console.log((e as Error).message);
+    }
+  }, []);
 
   function RenderRegisterOrLogin(props): React.ReactElement {
     const wasClicked = props.isOpen;
 
-    if(!wasClicked) {
+    if (!wasClicked) {
       return (
         <LoginOrRegister>
           <h1>Login</h1>
@@ -61,7 +65,9 @@ export default function Home() {
             <Button name="Entrar" type="submit" />
           </Form>
           <p>Esqueci minha senha</p>
-          <button onClick={openRegister}><strong>Criar uma conta</strong></button>
+          <button onClick={openRegister}>
+            <strong>Criar uma conta</strong>
+          </button>
         </LoginOrRegister>
       );
     } else {
@@ -75,7 +81,9 @@ export default function Home() {
             <Input name="password" placeholder="Senha" type="password" />
             <Button name="Confirmar" type="submit" />
           </Form>
-          <button onClick={openRegister}><strong>Voltar para Login</strong></button>
+          <button onClick={openRegister}>
+            <strong>Voltar para Login</strong>
+          </button>
         </LoginOrRegister>
       );
     }
@@ -83,6 +91,51 @@ export default function Home() {
 
   return (
     <Container>
+      <Sugestions>
+        <h1>Sugestões</h1>
+        <p>Aqui ficam suas sugestões de inutilidades!</p>
+        <Sugestion>
+          <SugestionText>
+            <h3>Nicolas Cage</h3>
+            <p>
+              Por favor, Davi, gostaria muito que você exposse os segredos que a
+              NASA anda escondendo de nós!
+            </p>
+          </SugestionText>
+          <SugestionArrows>
+            <IoMdArrowRoundUp size={40} color="var(--green)" />
+            <IoMdArrowRoundDown size={40} color="red" />
+          </SugestionArrows>
+          <h2>25</h2>
+        </Sugestion>
+        <Sugestion>
+          <SugestionText>
+            <h3>Nicolas Cage</h3>
+            <p>
+              Por favor, Davi, gostaria muito que você exposse os segredos que a
+              NASA anda escondendo de nós!
+            </p>
+          </SugestionText>
+          <SugestionArrows>
+            <IoMdArrowRoundUp size={40} color="var(--green)" />
+            <IoMdArrowRoundDown size={40} color="red" />
+          </SugestionArrows>
+          <h2>12</h2>
+        </Sugestion>
+        <Sugestion>
+          <SugestionText>
+            <h3>Rodrigo Hilbert</h3>
+            <p>
+            Bom dia, Davi! Que tal se você colocasse uma parte contando sobre as nossas aventuras na Amazônia e postando algumas fotos? Seria bacana!
+            </p>
+          </SugestionText>
+          <SugestionArrows>
+            <IoMdArrowRoundUp size={40} color="var(--green)" />
+            <IoMdArrowRoundDown size={40} color="red" />
+          </SugestionArrows>
+          <h2>4</h2>
+        </Sugestion>
+      </Sugestions>
       <People>
         <PerfilHeader>
           <h2>Pessoas já cadastradas</h2>
@@ -112,7 +165,9 @@ export default function Home() {
             <Button name="Entrar" type="submit" />
           </Form>
           <p>Esqueci minha senha</p>
-          <button onClick={openRegister}><strong>Criar uma conta</strong></button>
+          <button onClick={openRegister}>
+            <strong>Criar uma conta</strong>
+          </button>
         </RenderRegisterOrLogin>
       </Compilado>
     </Container>

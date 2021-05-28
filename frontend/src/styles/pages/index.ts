@@ -99,3 +99,34 @@ export const Container = styled.div`
 export const Form = styled(Unform)`
     padding: 32px  0;
 `;
+
+export const Sugestions = styled.div`
+  width: 25vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const Sugestion = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 16px;
+  margin: 24px;
+  
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+`
+
+export const SugestionText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+`
+
+export const SugestionArrows = styled.div`
+  display: flex;
+  flex-direction: column;
+`
