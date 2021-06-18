@@ -1,9 +1,5 @@
 /* eslint-disable import/no-unresolved */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-use-before-define */
 import React from 'react';
-
 import { IoMdArrowRoundUp, IoMdArrowRoundDown } from 'react-icons/io';
 import { useAuth } from '../hooks/auth';
 import {

@@ -34,4 +34,4 @@ frontend/.env
 .vercel
 
 # Authentication
-backend\src\config\auth.ts
+backend/src/database/database.sqlite
