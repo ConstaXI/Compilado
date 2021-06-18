@@ -2,15 +2,13 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-use-before-define */
-import React, { useState, useCallback, useRef } from 'react';
+import React from 'react';
 
-import { FormHandles } from '@unform/core';
 import { IoMdArrowRoundUp, IoMdArrowRoundDown } from 'react-icons/io';
+import { useAuth } from '../hooks/auth';
 import {
   Compilado,
   Container,
-  Form,
-  LoginOrRegister,
   People,
   Perfil,
   PerfilContainer,
@@ -20,96 +18,17 @@ import {
   SugestionArrows,
   Sugestions,
   SugestionText,
-} from '../styles/pages';
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
-
-import api from '../services/api';
-import { useAuth } from '../hooks/auth';
-
-interface ICreateUserForm {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-}
-
-interface ILogIn {
-  email: string;
-  password: string;
-}
+} from '../styles/pages/Home';
 
 const Home: React.FC = () => {
-  const { signIn } = useAuth();
-
-  const formRef = useRef<FormHandles>(null);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  function openRegister(): void {
-    setIsOpen(!isOpen);
-  }
-
-  const handleRegisterSubmit = useCallback(async (data: ICreateUserForm) => {
-    try {
-      formRef.current?.setErrors({});
-
-      await api.post('users', data);
-    } catch (e) {
-      alert(e.message);
-    }
-  }, []);
-
-  const handleLoginSubmit = useCallback(async (data: ILogIn) => {
-    try {
-      formRef.current?.setErrors({});
-
-      await signIn(data);
-      window.location.href = '/registered';
-    } catch (e) {
-      alert(e.message);
-    }
-  }, [signIn]);
-
-  const RenderRegisterOrLogin = (props: any) => {
-    const wasClicked = props.isOpen;
-
-    if (!wasClicked) {
-      return (
-        <LoginOrRegister>
-          <h1>Login</h1>
-          <Form onSubmit={handleLoginSubmit}>
-            <Input name="email" placeholder="Email" type="email" />
-            <Input name="password" placeholder="Senha" type="password" />
-            <Button name="Entrar" type="submit" />
-          </Form>
-          <p>Esqueci minha senha</p>
-          <button onClick={openRegister}>
-            <strong>Criar uma conta</strong>
-          </button>
-        </LoginOrRegister>
-      );
-    }
-    return (
-      <LoginOrRegister>
-        <h1>Registrar</h1>
-        <Form ref={formRef} onSubmit={handleRegisterSubmit}>
-          <Input name="name" placeholder="Primeiro Nome" type="name" />
-          <Input name="surname" placeholder="Segundo Nome" type="surname" />
-          <Input name="email" placeholder="Email" type="email" />
-          <Input name="password" placeholder="Senha" type="password" />
-          <Button name="Confirmar" type="submit" />
-        </Form>
-        <button onClick={openRegister}>
-          <strong>Voltar para Login</strong>
-        </button>
-      </LoginOrRegister>
-    );
-  };
+  const { signOut } = useAuth();
 
   return (
     <Container>
       <Sugestions>
+        <button name="LogOut" type="button" onClick={signOut}>
+          <strong>Log Out</strong>
+        </button>
         <h1>Sugestões</h1>
         <p>Aqui ficam suas sugestões de inutilidades!</p>
         <Sugestion>
@@ -177,7 +96,6 @@ const Home: React.FC = () => {
       </People>
       <Compilado>
         <h1 className="Compilado">Compilado_</h1>
-        <RenderRegisterOrLogin isOpen={isOpen} />
       </Compilado>
     </Container>
   );

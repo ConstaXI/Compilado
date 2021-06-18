@@ -1,14 +1,10 @@
 import styled from 'styled-components';
 import { Form as Unform } from '@unform/web';
 
-export const LoginOrRegister = styled.div`
-  padding: 40px 24px;
-  margin: 32px 0;
+export const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
 
   button {
     border: none;
@@ -89,12 +85,6 @@ export const PerfilText = styled.div`
 export const PerfilContainer = styled.div`
   height: 90vh;
   overflow: auto;
-`;
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;
 
 export const Form = styled(Unform)`

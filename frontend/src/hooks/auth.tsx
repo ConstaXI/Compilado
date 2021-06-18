@@ -42,7 +42,7 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     const response = await api.post('auth', {
       email,
       password,
@@ -50,13 +50,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
-    console.log(`signIn/user: ${user.name}`);
-
     localStorage.setItem('@Compilado:token', token);
     localStorage.setItem('@Compilado:user', JSON.stringify(user));
-
-    console.log(`token from localStorage.setItem: ${token}`);
-    console.log(`user from localStorage.setItem: ${token}`);
 
     setData({ token, user });
   }, []);
