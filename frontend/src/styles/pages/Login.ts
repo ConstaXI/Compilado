@@ -4,9 +4,22 @@ export const Container = styled.div`
   height: 100vh;
   
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+
+export const Compilado = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  padding-left: 24px;
+
+  .Compilado {
+    font-size: 8rem;
+    color: var(--primary-purple);
+  }
 `;
 
 export const LoginOrRegister = styled.div`

@@ -3,11 +3,13 @@ import React, {
 } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
+import * as Yup from 'yup';
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/auth';
 import api from '../services/api';
-import { Container, LoginOrRegister } from '../styles/pages/Login';
+import { Container, LoginOrRegister, Compilado } from '../styles/pages/Login';
 import { Input } from '../components/Input';
+import getValidationErrors from '../utils/getValidationErrors';
 
 interface ICreateUserForm {
   name: string;
@@ -40,11 +42,26 @@ const Login: React.FC = () => {
     try {
       formRef.current?.setErrors({});
 
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        surname: Yup.string().required('Sobrenome obrigatório'),
+        email: Yup.string().email().required('Email obrigatório'),
+        password: Yup.string().required('Senha obrigatória'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
       await api.post('users', data);
-      window.location.href = '/home';
       await signIn({ ...data });
-    } catch (e: any) {
-      alert(e.message);
+      window.location.href = '/home';
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(error);
+
+        formRef.current?.setErrors(errors);
+      }
     }
   }, [signIn]);
 
@@ -52,10 +69,23 @@ const Login: React.FC = () => {
     try {
       formRef.current?.setErrors({});
 
+      const schema = Yup.object().shape({
+        email: Yup.string().email(),
+        password: Yup.string().required(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
       await signIn(data);
       window.location.href = '/home';
-    } catch (e: any) {
-      alert(e.message);
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(error);
+
+        formRef.current?.setErrors(errors);
+      }
     }
   }, [signIn]);
 
@@ -96,6 +126,9 @@ const Login: React.FC = () => {
 
   return (
     <Container>
+      <Compilado>
+        <h1 className="Compilado">Compilado_</h1>
+      </Compilado>
       <RenderRegisterOrLogin wasClicked={isOpen} />
     </Container>
   );
