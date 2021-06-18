@@ -1,19 +1,19 @@
-import { useField } from "@unform/core";
-import { InputHTMLAttributes, useEffect, useRef } from "react";
+import { useField } from '@unform/core';
+import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
 
-import { Container, InputContent } from "../styles/components/input";
+import { Container, InputContent } from '../styles/components/input';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   type: string;
-  placeholder?: string;
+  placeholder: string;
 }
 
 export function Input({
   name,
   type,
   placeholder,
-}: InputProps) {
+}: InputProps): React.ReactElement {
   const { fieldName, defaultValue, registerField } = useField(name);
   const inputRef = useRef<HTMLInputElement>(null);
 

@@ -1,5 +1,11 @@
-import React, { useState, useCallback, useRef } from "react";
+/* eslint-disable import/no-unresolved */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/button-has-type */
+/* eslint-disable no-use-before-define */
+import React, { useState, useCallback, useRef } from 'react';
 
+import { FormHandles } from '@unform/core';
+import { IoMdArrowRoundUp, IoMdArrowRoundDown } from 'react-icons/io';
 import {
   Compilado,
   Container,
@@ -14,14 +20,12 @@ import {
   SugestionArrows,
   Sugestions,
   SugestionText,
-} from "../styles/pages";
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
+} from '../styles/pages';
+import { Input } from '../components/Input';
+import { Button } from '../components/Button';
 
-import api from "../services/api";
-import { FormHandles } from "@unform/core";
-
-import { IoMdArrowRoundUp, IoMdArrowRoundDown } from "react-icons/io";
+import api from '../services/api';
+import { useAuth } from '../hooks/auth';
 
 interface ICreateUserForm {
   name: string;
@@ -30,7 +34,14 @@ interface ICreateUserForm {
   password: string;
 }
 
-export default function Home() {
+interface ILogIn {
+  email: string;
+  password: string;
+}
+
+const Home: React.FC = () => {
+  const { signIn } = useAuth();
+
   const formRef = useRef<FormHandles>(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -43,28 +54,24 @@ export default function Home() {
     try {
       formRef.current?.setErrors({});
 
-      console.log(data);
-
-      await api.post("users", data);
+      await api.post('users', data);
     } catch (e) {
-      console.log((e as Error).message);
+      alert(e.message);
     }
   }, []);
 
-  const handleLoginSubmit = useCallback(async (data: ICreateUserForm) => {
+  const handleLoginSubmit = useCallback(async (data: ILogIn) => {
     try {
       formRef.current?.setErrors({});
 
-      console.log(data);
-
-      await api.post("auth", data);
-      window.location.href = "/test";
+      await signIn(data);
+      window.location.href = '/registered';
     } catch (e) {
-      console.log((e as Error).message);
+      alert(e.message);
     }
-  }, []);
+  }, [signIn]);
 
-  function RenderRegisterOrLogin(props): React.ReactElement {
+  const RenderRegisterOrLogin = (props: any) => {
     const wasClicked = props.isOpen;
 
     if (!wasClicked) {
@@ -82,24 +89,23 @@ export default function Home() {
           </button>
         </LoginOrRegister>
       );
-    } else {
-      return (
-        <LoginOrRegister>
-          <h1>Registrar</h1>
-          <Form ref={formRef} onSubmit={handleRegisterSubmit}>
-            <Input name="name" placeholder="Primeiro Nome" type="name" />
-            <Input name="surname" placeholder="Segundo Nome" type="surname" />
-            <Input name="email" placeholder="Email" type="email" />
-            <Input name="password" placeholder="Senha" type="password" />
-            <Button name="Confirmar" type="submit" />
-          </Form>
-          <button onClick={openRegister}>
-            <strong>Voltar para Login</strong>
-          </button>
-        </LoginOrRegister>
-      );
     }
-  }
+    return (
+      <LoginOrRegister>
+        <h1>Registrar</h1>
+        <Form ref={formRef} onSubmit={handleRegisterSubmit}>
+          <Input name="name" placeholder="Primeiro Nome" type="name" />
+          <Input name="surname" placeholder="Segundo Nome" type="surname" />
+          <Input name="email" placeholder="Email" type="email" />
+          <Input name="password" placeholder="Senha" type="password" />
+          <Button name="Confirmar" type="submit" />
+        </Form>
+        <button onClick={openRegister}>
+          <strong>Voltar para Login</strong>
+        </button>
+      </LoginOrRegister>
+    );
+  };
 
   return (
     <Container>
@@ -138,7 +144,9 @@ export default function Home() {
           <SugestionText>
             <h3>Rodrigo Hilbert</h3>
             <p>
-            Bom dia, Davi! Que tal se você colocasse uma parte contando sobre as nossas aventuras na Amazônia e postando algumas fotos? Seria bacana!
+              Bom dia, Davi! Que tal se você colocasse uma parte contando sobre
+              as nossas aventuras na Amazônia e postando algumas fotos? Seria
+              bacana!
             </p>
           </SugestionText>
           <SugestionArrows>
@@ -162,26 +170,17 @@ export default function Home() {
             <div className="Photo" />
             <PerfilText>
               <h3>Nicolas Cage</h3>
-              <p>"Uma experiência que mudou a minha vida" 24/11/2000</p>
+              <p>&quot;Uma experiência que mudou a minha vida&quot; 24/11/2000</p>
             </PerfilText>
           </Perfil>
         </PerfilContainer>
       </People>
       <Compilado>
         <h1 className="Compilado">Compilado_</h1>
-        <RenderRegisterOrLogin isOpen={isOpen}>
-          <h1>Login</h1>
-          <Form>
-            <Input name="email" placeholder="Email" type="email" />
-            <Input name="password" placeholder="Senha" type="password" />
-            <Button name="Entrar" type="submit" />
-          </Form>
-          <p>Esqueci minha senha</p>
-          <button onClick={openRegister}>
-            <strong>Criar uma conta</strong>
-          </button>
-        </RenderRegisterOrLogin>
+        <RenderRegisterOrLogin isOpen={isOpen} />
       </Compilado>
     </Container>
   );
-}
+};
+
+export default Home;

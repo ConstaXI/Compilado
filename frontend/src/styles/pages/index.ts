@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Form as Unform } from "@unform/web";
+import styled from 'styled-components';
+import { Form as Unform } from '@unform/web';
 
 export const LoginOrRegister = styled.div`
   padding: 40px 24px;
@@ -31,7 +31,7 @@ export const Compilado = styled.div`
     font-size: 8rem;
     color: var(--primary-purple);
   }
-`
+`;
 
 export const People = styled.div`
   width: 25vw;
@@ -43,13 +43,13 @@ export const People = styled.div`
   text-align: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   max-height: 100vh;
-  `
+`;
 
 export const PerfilHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
   width: 25vw;
 
   hr {
@@ -59,10 +59,11 @@ export const PerfilHeader = styled.div`
     border: none;
   }
 
-  h2, p {
+  h2,
+  p {
     padding: 4px;
   }
-`
+`;
 
 export const Perfil = styled.div`
   display: flex;
@@ -76,19 +77,19 @@ export const Perfil = styled.div`
     height: 64px;
     background-color: var(--primary-purple);
   }
-`
+`;
 
 export const PerfilText = styled.div`
   display: flex;
   flex-direction: column;
 
   text-align: left;
-`
+`;
 
 export const PerfilContainer = styled.div`
   height: 90vh;
   overflow: auto;
-`
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -97,7 +98,7 @@ export const Container = styled.div`
 `;
 
 export const Form = styled(Unform)`
-    padding: 32px  0;
+  padding: 32px 0;
 `;
 
 export const Sugestions = styled.div`
@@ -106,7 +107,7 @@ export const Sugestions = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const Sugestion = styled.div`
   display: flex;
@@ -115,18 +116,18 @@ export const Sugestion = styled.div`
 
   padding: 16px;
   margin: 24px;
-  
+
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-`
+`;
 
 export const SugestionText = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-`
+`;
 
 export const SugestionArrows = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
