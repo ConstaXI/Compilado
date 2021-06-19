@@ -1,6 +1,13 @@
 /* eslint-disable import/no-unresolved */
-import React from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import { IoMdArrowRoundUp, IoMdArrowRoundDown } from 'react-icons/io';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/web';
+import * as Yup from 'yup';
+import { parseISO, format } from 'date-fns';
+import { Input } from '../components/Input';
 import { useAuth } from '../hooks/auth';
 import {
   Compilado,
@@ -15,9 +22,69 @@ import {
   Sugestions,
   SugestionText,
 } from '../styles/pages/Home';
+import { Button } from '../components/Button';
+import api from '../services/api';
+import getValidationErrors from '../utils/getValidationErrors';
+
+interface IMessage {
+  text: string;
+  user_id: string;
+}
+
+interface IMessageWithData {
+  text: string;
+  created_at: string;
+}
 
 const Home: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
+
+  const formRef = useRef<FormHandles>(null);
+
+  const [messages, setMessages] = useState<IMessageWithData[]>([]);
+
+  useEffect(() => {
+    async function loadMessages() {
+      const response = await api.get<IMessageWithData[]>('/messages');
+
+      const formattedMessages = response.data.map((single_message) => ({
+        ...single_message,
+        created_at: format(
+          parseISO(single_message.created_at),
+          'dd/MM/yyyy',
+        ),
+      }));
+
+      setMessages(formattedMessages);
+    }
+
+    loadMessages();
+  });
+
+  const hendleSendMessage = useCallback(async (data: IMessage) => {
+    try {
+      formRef.current?.setErrors({});
+
+      const schema = Yup.object().shape({
+        message: Yup.string().required('Não vai enviar nada?'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      await api.post('/messages', {
+        text: data.text,
+        user_id: user.id,
+      });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(error);
+
+        formRef.current?.setErrors(errors);
+      }
+    }
+  }, [user]);
 
   return (
     <Container>
@@ -81,8 +148,8 @@ const Home: React.FC = () => {
           <hr />
         </PerfilHeader>
         <PerfilContainer>
+          {}
           <Perfil>
-            <div className="Photo" />
             <PerfilText>
               <h3>Nicolas Cage</h3>
               <p>&quot;Uma experiência que mudou a minha vida&quot; 24/11/2000</p>
@@ -92,6 +159,10 @@ const Home: React.FC = () => {
       </People>
       <Compilado>
         <h1 className="Compilado">Compilado_</h1>
+        <Form onSubmit={hendleSendMessage}>
+          <Input name="message" type="text" placeholder="me deixe uma mensagem!" />
+          <Button name="Enviar" type="submit" />
+        </Form>
       </Compilado>
     </Container>
   );
