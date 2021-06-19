@@ -2,7 +2,7 @@
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
-import { IoMdArrowRoundUp, IoMdArrowRoundDown } from 'react-icons/io';
+import { IoMdArrowRoundUp, IoMdArrowRoundDown, IoIosSend } from 'react-icons/io';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -36,7 +36,7 @@ interface IMessage {
 const Home: React.FC = () => {
   const { signOut, user } = useAuth();
 
-  const formRef = useRef<FormHandles>(null);
+  const formRef = useRef<FormHandles>();
 
   const [messages, setMessages] = useState<IMessage[]>([]);
 
@@ -74,8 +74,6 @@ const Home: React.FC = () => {
         message: data.message,
         user_id: user.id,
       });
-
-      formRef.current?.reset();
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error);
@@ -136,12 +134,8 @@ const Home: React.FC = () => {
       </Sugestions>
       <People>
         <PerfilHeader>
-          <h2>Pessoas já cadastradas</h2>
-          <p>
-            Venha fazer parte você também. O site é completamente inútil, porém
-            muito divertido e esteticamente bonito (bem... eu tentei)
-          </p>
-          <hr />
+          <IoIosSend size={48} color="var(--primary-purple)" />
+          <h2>Mensagens deixadas</h2>
         </PerfilHeader>
         <PerfilContainer>
           {messages.length > 0 ? (

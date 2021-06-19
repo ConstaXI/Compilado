@@ -1,19 +1,16 @@
-/* eslint-disable import/no-unresolved */
 import { useField } from '@unform/core';
 import React, { InputHTMLAttributes, useEffect, useRef } from 'react';
-import { FiAlertCircle } from 'react-icons/fi';
-import { Error, Container, InputContent } from '../styles/components/Input';
+import { Error, Container } from '../styles/components/Input';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  type: string;
   placeholder: string;
 }
 
 export function Input({
   name,
-  type,
   placeholder,
+  ...rest
 }: InputProps): React.ReactElement {
   const {
     fieldName, defaultValue, registerField, error,
@@ -30,21 +27,17 @@ export function Input({
 
   return (
     <Container>
-      <InputContent>
-        <input
-          type={type}
-          name={name}
-          defaultValue={defaultValue}
-          placeholder={placeholder}
-          ref={inputRef}
-        />
+      <input
+        name={name}
+        defaultValue={defaultValue}
+        placeholder={placeholder}
+        ref={inputRef}
+        {...rest}
+      />
 
-        {error && (
-          <Error title={error}>
-            <FiAlertCircle size={20} color="#C53030" />
-          </Error>
-        )}
-      </InputContent>
+      {error && (
+        <Error title={error} />
+      )}
     </Container>
   );
 }

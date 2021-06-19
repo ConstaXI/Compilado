@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 import { fadeInLeft } from 'react-animations';
-import { Form as Unform } from '@unform/web';
 
 export const Container = styled.div`
   display: flex;
@@ -43,13 +42,14 @@ export const People = styled.div`
   justify-content: start;
   text-align: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  max-height: 100vh;
+  height: 100vh;
 `;
 
 export const PerfilHeader = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
 
   width: 25vw;
 
@@ -72,6 +72,10 @@ export const Perfil = styled.div`
   display: flex;
   flex-direction: row;
 
+  &:hover {
+    background-color: var(--grey-50);
+  }
+
   animation: 1s ${fadeInAnimation};
 
   padding: 8px 16px;
@@ -89,16 +93,15 @@ export const PerfilContainer = styled.div`
   overflow: auto;
 `;
 
-export const Form = styled(Unform)`
-  padding: 32px 0;
-`;
-
 export const Sugestions = styled.div`
   width: 25vw;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  overflow: auto;
+  height: 100vh;
 `;
 
 export const Sugestion = styled.div`

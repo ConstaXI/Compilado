@@ -2,8 +2,8 @@ import React, {
   useRef, useCallback, useState, ReactElement,
 } from 'react';
 import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { Form } from '@unform/web';
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/auth';
 import api from '../services/api';
@@ -81,6 +81,7 @@ const Login: React.FC = () => {
       });
 
       await signIn(data);
+
       window.location.href = '/home';
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -123,9 +124,11 @@ const Login: React.FC = () => {
           <Input name="password" placeholder="Senha" type="password" />
           <Button name="Confirmar" type="submit" />
         </Form>
-        <button onClick={openRegister} type="submit">
-          <strong>Voltar para Login</strong>
-        </button>
+        <Misc>
+          <button onClick={openRegister} type="submit">
+            <strong>Voltar para Login</strong>
+          </button>
+        </Misc>
       </LoginOrRegister>
     );
   };

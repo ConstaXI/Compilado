@@ -27,7 +27,6 @@ export default createGlobalStyle`
 
     ::-webkit-scrollbar-track {
         border-radius: 4px;
-        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
     }
 
     ::-webkit-scrollbar-thumb {

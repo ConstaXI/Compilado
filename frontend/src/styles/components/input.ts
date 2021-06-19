@@ -3,14 +3,8 @@ import Tooltip from '../../components/Tooltip';
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
-`;
-
-export const InputContent = styled.div`
-  display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
 
   input {
     width: 20rem;
@@ -18,11 +12,15 @@ export const InputContent = styled.div`
 
     padding-left: 1rem;
     padding-right: 0.8rem;
-    border: 0vh;
 
-    border-bottom: 2px solid black;
+    border: none;
+    border-bottom: 2px solid var(--grey-500);
 
     margin-bottom: 1.2rem;
+
+    &:focus {
+      border: none;
+    }
   }
 `;
 
@@ -36,7 +34,7 @@ export const Error = styled(Tooltip)`
 
   span {
     background: #c53030;
-    color: #fff;
+    color: #ff0000;
 
     &::before {
       border-color: #c53030 transparent;

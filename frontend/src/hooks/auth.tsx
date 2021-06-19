@@ -32,9 +32,6 @@ const AuthProvider: React.FC = ({ children }) => {
     const token = localStorage.getItem('@Compilado:token');
     const user = localStorage.getItem('@Compilado:user');
 
-    console.log(`token from localStorage.getItem: ${token}`);
-    console.log(`user from localStorage.getItem: ${token}`);
-
     if (token && user) {
       return { token, user: JSON.parse(user) };
     }
@@ -79,8 +76,6 @@ function useAuth(): AuthContextData {
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider.');
   }
-
-  console.log(`context.user:${context.user}`);
 
   return context;
 }

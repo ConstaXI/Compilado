@@ -50,7 +50,7 @@ export const Misc = styled.div`
 
   button {
     border: none;
-    background-color: white;
+    background-color: transparent;
 
     &:hover {
       text-decoration: underline;
