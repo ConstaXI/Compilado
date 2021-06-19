@@ -37,7 +37,6 @@ export const Compilado = styled.div`
 
 export const People = styled.div`
   width: 25vw;
-  padding: 0 8px 0 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -75,7 +74,7 @@ export const Perfil = styled.div`
 
   animation: 1s ${fadeInAnimation};
 
-  padding: 12px 8px;
+  padding: 8px 16px;
 `;
 
 export const PerfilText = styled.div`

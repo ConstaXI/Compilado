@@ -21,6 +21,20 @@ export default createGlobalStyle`
         --grey-800: #494D4B;
     }
 
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 4px;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: var(--grey-200);
+    }
+
     @media (max-width: 1080px) {
         html {
             font-size: 93.75%; // 15px
