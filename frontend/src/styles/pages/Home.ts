@@ -19,7 +19,7 @@ export const Container = styled.div`
 export const Compilado = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 
   padding-left: 24px;
 

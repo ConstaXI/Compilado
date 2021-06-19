@@ -27,7 +27,7 @@ export default class CreateMessages1624059402689 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: "MedicUser",
+            name: "MessageUser",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
             columnNames: ["user_id"],

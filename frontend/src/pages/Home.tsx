@@ -27,13 +27,9 @@ import api from '../services/api';
 import getValidationErrors from '../utils/getValidationErrors';
 
 interface IMessage {
-  text: string;
-  user_id: string;
-}
-
-interface IMessageWithData {
-  text: string;
+  message: string;
   created_at: string;
+  user_id: string;
 }
 
 const Home: React.FC = () => {
@@ -41,11 +37,11 @@ const Home: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
 
-  const [messages, setMessages] = useState<IMessageWithData[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
   useEffect(() => {
     async function loadMessages() {
-      const response = await api.get<IMessageWithData[]>('/messages');
+      const response = await api.get<IMessage[]>('/messages');
 
       const formattedMessages = response.data.map((single_message) => ({
         ...single_message,
@@ -74,7 +70,7 @@ const Home: React.FC = () => {
       });
 
       await api.post('/messages', {
-        text: data.text,
+        message: data.message,
         user_id: user.id,
       });
     } catch (error) {
@@ -148,19 +144,30 @@ const Home: React.FC = () => {
           <hr />
         </PerfilHeader>
         <PerfilContainer>
-          {}
-          <Perfil>
-            <PerfilText>
-              <h3>Nicolas Cage</h3>
-              <p>&quot;Uma experiência que mudou a minha vida&quot; 24/11/2000</p>
-            </PerfilText>
-          </Perfil>
+          {messages.length > 0 ? (
+            messages.map((message) => (
+              <Perfil>
+                <PerfilText>
+                  <h3>{message.user_id}</h3>
+                  <p>
+                    &quot;
+                    {message.message}
+                    &quot;
+                    <br />
+                    {message.created_at}
+                  </p>
+                </PerfilText>
+              </Perfil>
+            ))
+          ) : (
+            <p>Seja o primeiro a deixar uma mensagem!</p>
+          )}
         </PerfilContainer>
       </People>
       <Compilado>
         <h1 className="Compilado">Compilado_</h1>
         <Form onSubmit={hendleSendMessage}>
-          <Input name="message" type="text" placeholder="me deixe uma mensagem!" />
+          <Input name="message" type="message" placeholder="me deixe uma mensagem!" />
           <Button name="Enviar" type="submit" />
         </Form>
       </Compilado>

@@ -1,12 +1,12 @@
 import { inject, injectable } from "tsyringe";
 import Message from "../../models/Message";
-import MessagesRepository from "../../repositories/MessagesRepository";
+import IMessagesRepository from "../../repositories/interfaces/IMessagesRepository";
 
 @injectable()
 export default class FindMessages {
     constructor(
         @inject("MessagesRepository")
-        private messagesRepository: MessagesRepository,
+        private messagesRepository: IMessagesRepository,
     ) {}
 
     public async execute(): Promise<Message[] | undefined> {

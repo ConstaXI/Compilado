@@ -1,17 +1,17 @@
 import { inject, injectable } from "tsyringe";
 import ICreateMessageDTO from "../../dtos/ICreateMessageDTO";
 import Message from "../../models/Message";
-import MessagesRepository from "../../repositories/MessagesRepository";
-import UsersRepository from "../../repositories/UsersRepository";
+import IMessagesRepository from "../../repositories/interfaces/IMessagesRepository";
+import IUsersRepository from "../../repositories/interfaces/IUsersRepository";
 
 @injectable()
 export default class CreateMessageService {
     constructor(
         @inject("MessagesRepository")
-        private messagesRepository: MessagesRepository,
+        private messagesRepository: IMessagesRepository,
 
-        @inject("usersRepository")
-        private usersRepository: UsersRepository,
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository,
     ) {}
 
     public async execute(data: ICreateMessageDTO): Promise<Message> {
