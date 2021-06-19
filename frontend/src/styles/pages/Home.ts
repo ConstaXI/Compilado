@@ -89,12 +89,13 @@ export const PerfilText = styled.div`
 `;
 
 export const PerfilContainer = styled.div`
-  height: 90vh;
+  height: 100vh;
   overflow: auto;
+  width: 100%;
 `;
 
 export const Sugestions = styled.div`
-  width: 25vw;
+  width: 30vw;
 
   display: flex;
   flex-direction: column;

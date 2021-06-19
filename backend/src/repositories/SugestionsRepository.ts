@@ -13,9 +13,9 @@ export default class SugestionsRepository implements ISugestionsRepository {
     public async create(data: ICreateSugestionDTO): Promise<Sugestion> {
         const sugestion = this.ormRepository.create(data);
 
-        await this.ormRepository.save(sugestion);
-
         sugestion.votes = 0;
+
+        await this.ormRepository.save(sugestion);
 
         return sugestion;
     }
@@ -24,5 +24,17 @@ export default class SugestionsRepository implements ISugestionsRepository {
         const sugestions = await this.ormRepository.find();
 
         return sugestions;
+    }
+
+    public async save(sugestion: Sugestion): Promise<void> {
+        await this.ormRepository.save(sugestion);
+    }
+
+    public async findById(id: string): Promise<Sugestion | undefined> {
+        const sugestion = await this.ormRepository.findOne({
+            where: { id }
+        });
+
+        return sugestion;
     }
 }

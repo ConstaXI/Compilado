@@ -21,9 +21,9 @@ export default class CreateSugestionService {
             throw new Error("Usário não encontrado");
         }
 
-        const sugestion = await this.sugestionsRepository.create(data);
+        data.user_name = user.name + " " + user.surname;
 
-        sugestion.user_name = user.name + " " + user.surname;
+        const sugestion = await this.sugestionsRepository.create(data);
 
         return sugestion;
     }

@@ -33,30 +33,36 @@ interface IMessage {
   user_name: string;
 }
 
+interface ISugestion {
+  text: string;
+  votes: number;
+  user_id: string;
+  user_name: string;
+}
+
 const Home: React.FC = () => {
   const { signOut, user } = useAuth();
 
   const formRef = useRef<FormHandles>();
 
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [sugestions, setSugestions] = useState<ISugestion[]>([]);
 
   useEffect(() => {
-    async function loadMessages() {
-      const response = await api.get<IMessage[]>('/messages');
+    api.get<ISugestion[]>('sugestions').then((response) => setSugestions(response.data));
 
-      const formattedMessages = response.data.map((single_message) => ({
+    api.get<IMessage[]>('messages').then((response) => {
+      setMessages(response.data.map((single_message) => ({
         ...single_message,
         created_at: format(
           parseISO(single_message.created_at),
           'dd/MM/yyyy',
         ),
-      }));
+      })));
+    });
 
-      setMessages(formattedMessages);
-    }
-
-    loadMessages();
-  });
+    console.log('Information loaded');
+  }, []);
 
   const hendleSendMessage = useCallback(async (data: IMessage) => {
     try {
@@ -74,6 +80,8 @@ const Home: React.FC = () => {
         message: data.message,
         user_id: user.id,
       });
+
+      window.location.href = '/home';
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error);
@@ -83,54 +91,44 @@ const Home: React.FC = () => {
     }
   }, [user]);
 
+  const upVote = useCallback(async (id: string) => {
+    api.put(`/sugestions/up/${id}`);
+  }, []);
+
+  const downVote = useCallback(async (id: string) => {
+    api.put(`/sugestions/down/${id}`);
+  }, []);
+
   return (
     <Container>
       <Sugestions>
         <h1>Sugestões</h1>
         <p>Aqui ficam suas sugestões de inutilidades!</p>
-        <Sugestion>
-          <SugestionText>
-            <h3>Nicolas Cage</h3>
-            <p>
-              Por favor, Davi, gostaria muito que você exposse os segredos que a
-              NASA anda escondendo de nós!
-            </p>
-          </SugestionText>
-          <SugestionArrows>
-            <IoMdArrowRoundUp size={40} color="var(--green)" />
-            <IoMdArrowRoundDown size={40} color="red" />
-          </SugestionArrows>
-          <h2>25</h2>
-        </Sugestion>
-        <Sugestion>
-          <SugestionText>
-            <h3>Nicolas Cage</h3>
-            <p>
-              Por favor, Davi, gostaria muito que você exposse os segredos que a
-              NASA anda escondendo de nós!
-            </p>
-          </SugestionText>
-          <SugestionArrows>
-            <IoMdArrowRoundUp size={40} color="var(--green)" />
-            <IoMdArrowRoundDown size={40} color="red" />
-          </SugestionArrows>
-          <h2>12</h2>
-        </Sugestion>
-        <Sugestion>
-          <SugestionText>
-            <h3>Rodrigo Hilbert</h3>
-            <p>
-              Bom dia, Davi! Que tal se você colocasse uma parte contando sobre
-              as nossas aventuras na Amazônia e postando algumas fotos? Seria
-              bacana!
-            </p>
-          </SugestionText>
-          <SugestionArrows>
-            <IoMdArrowRoundUp size={40} color="var(--green)" />
-            <IoMdArrowRoundDown size={40} color="red" />
-          </SugestionArrows>
-          <h2>4</h2>
-        </Sugestion>
+        {sugestions.length > 0 ? (
+          sugestions.map((sugestion) => (
+            <Sugestion>
+              <SugestionText>
+                <h3>{sugestion.user_name}</h3>
+                <p>{sugestion.text}</p>
+              </SugestionText>
+              <SugestionArrows>
+                <Form onSubmit={upVote}>
+                  <button type="submit" value="id">
+                    <IoMdArrowRoundUp size={40} color="var(--green)" />
+                  </button>
+                </Form>
+                <Form onSubmit={downVote}>
+                  <button type="submit" value="id">
+                    <IoMdArrowRoundDown size={40} color="red" />
+                  </button>
+                </Form>
+              </SugestionArrows>
+              <h2>{sugestion.votes}</h2>
+            </Sugestion>
+          ))
+        ) : (
+          <p>Ainda não há sugestões</p>
+        )}
       </Sugestions>
       <People>
         <PerfilHeader>
@@ -161,7 +159,7 @@ const Home: React.FC = () => {
       <Compilado>
         <h1 className="Compilado">Compilado_</h1>
         <Form onSubmit={hendleSendMessage}>
-          <Input name="message" type="message" placeholder="me deixe uma mensagem!" />
+          <Input name="message" placeholder="me deixe uma mensagem!" />
           <Button name="Enviar" type="submit" />
         </Form>
         <button name="LogOut" type="button" onClick={signOut}>
