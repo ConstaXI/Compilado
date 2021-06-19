@@ -21,6 +21,8 @@ export default class CreateMessageService {
             throw new Error("User doesn't exist");
         }
 
+        data.user_name = user.name + " " + user.surname;
+
         const message = await this.messagesRepository.create(data);
 
         return message;

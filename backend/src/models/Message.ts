@@ -8,6 +8,9 @@ export default class Message {
   readonly id: string;
 
   @Column()
+  user_name: string;
+
+  @Column()
   message: string;
 
   @ManyToOne(() => User)

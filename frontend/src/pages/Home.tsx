@@ -30,6 +30,7 @@ interface IMessage {
   message: string;
   created_at: string;
   user_id: string;
+  user_name: string;
 }
 
 const Home: React.FC = () => {
@@ -73,6 +74,8 @@ const Home: React.FC = () => {
         message: data.message,
         user_id: user.id,
       });
+
+      formRef.current?.reset();
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const errors = getValidationErrors(error);
@@ -85,9 +88,6 @@ const Home: React.FC = () => {
   return (
     <Container>
       <Sugestions>
-        <button name="LogOut" type="button" onClick={signOut}>
-          <strong>Log Out</strong>
-        </button>
         <h1>Sugestões</h1>
         <p>Aqui ficam suas sugestões de inutilidades!</p>
         <Sugestion>
@@ -148,7 +148,7 @@ const Home: React.FC = () => {
             messages.map((message) => (
               <Perfil>
                 <PerfilText>
-                  <h3>{message.user_id}</h3>
+                  <h3>{message.user_name}</h3>
                   <p>
                     &quot;
                     {message.message}
@@ -170,6 +170,9 @@ const Home: React.FC = () => {
           <Input name="message" type="message" placeholder="me deixe uma mensagem!" />
           <Button name="Enviar" type="submit" />
         </Form>
+        <button name="LogOut" type="button" onClick={signOut}>
+          <strong>Log Out</strong>
+        </button>
       </Compilado>
     </Container>
   );

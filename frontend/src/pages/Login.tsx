@@ -7,7 +7,9 @@ import * as Yup from 'yup';
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/auth';
 import api from '../services/api';
-import { Container, LoginOrRegister, Compilado } from '../styles/pages/Login';
+import {
+  Container, LoginOrRegister, Compilado, Misc,
+} from '../styles/pages/Login';
 import { Input } from '../components/Input';
 import getValidationErrors from '../utils/getValidationErrors';
 
@@ -99,10 +101,14 @@ const Login: React.FC = () => {
             <Input name="password" placeholder="Senha" type="password" />
             <Button name="Entrar" type="submit" />
           </Form>
-          <p>Esqueci minha senha</p>
-          <button onClick={openRegister} type="button">
-            <strong>Criar uma conta</strong>
-          </button>
+          <Misc>
+            <button type="button">
+              <strong>Esqueci minha senha</strong>
+            </button>
+            <button onClick={openRegister} type="button">
+              <strong>Criar uma conta</strong>
+            </button>
+          </Misc>
         </LoginOrRegister>
       );
     }

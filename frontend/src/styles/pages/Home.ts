@@ -1,10 +1,12 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { fadeInLeft } from 'react-animations';
 import { Form as Unform } from '@unform/web';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  max-height: 100vh;
 
   button {
     border: none;
@@ -24,8 +26,12 @@ export const Compilado = styled.div`
   padding-left: 24px;
 
   .Compilado {
-    font-size: 8rem;
+    font-size: 6em;
     color: var(--primary-purple);
+  }
+
+  button {
+    padding-top: 32px;
   }
 `;
 
@@ -57,22 +63,19 @@ export const PerfilHeader = styled.div`
 
   h2,
   p {
-    padding: 4px;
+    padding: 6px;
   }
 `;
+
+const fadeInAnimation = keyframes`${fadeInLeft}`;
 
 export const Perfil = styled.div`
   display: flex;
   flex-direction: row;
 
-  padding: 8px;
+  animation: 1s ${fadeInAnimation};
 
-  .Photo {
-    margin: 0 8px 0 8px;
-    width: 96px;
-    height: 64px;
-    background-color: var(--primary-purple);
-  }
+  padding: 12px 8px;
 `;
 
 export const PerfilText = styled.div`

@@ -12,6 +12,10 @@ export default class CreateMessages1624059402689 implements MigrationInterface {
             isPrimary: true,
           },
           {
+            name: "user_name",
+            type: "varchar",
+          },
+          {
             name: "message",
             type: "varchar",
           },
