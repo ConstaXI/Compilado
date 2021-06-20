@@ -3,12 +3,13 @@ import { container } from "tsyringe";
 import BCryptHashProvider from "../providers/implementations/BcryptHashProvider"
 import IHashProvider from "../providers/interface/IHashProvider";
 import IMessagesRepository from "../repositories/interfaces/IMessagesRepository";
-import ISugestionsRepository from "../repositories/interfaces/ISugestionsRepository";
-
+import ISuggestionsRepository from "../repositories/interfaces/ISuggestionsRepository";
 import IUsersRepository from "../repositories/interfaces/IUsersRepository";
+import IVotesRepository from "../repositories/interfaces/IVotesRepository";
 import MessagesRepository from "../repositories/MessagesRepository";
-import SugestionsRepository from "../repositories/SugestionsRepository";
+import SuggestionsRepository from "../repositories/SuggestionsRepository";
 import UsersRepository from "../repositories/UsersRepository";
+import VotesRepository from "../repositories/VotesRepository";
 
 container.registerSingleton<IUsersRepository>(
   "UsersRepository",
@@ -25,7 +26,12 @@ container.registerSingleton<IMessagesRepository>(
   MessagesRepository
 );
 
-container.registerSingleton<ISugestionsRepository>(
-  "SugestionsRepository",
-  SugestionsRepository
+container.registerSingleton<ISuggestionsRepository>(
+  "SuggestionsRepository",
+  SuggestionsRepository
+);
+
+container.registerSingleton<IVotesRepository>(
+  "VotesRepository",
+  VotesRepository
 );

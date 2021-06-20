@@ -10,6 +10,8 @@ export const Container = styled.div`
     width: 20rem;
     height: 2.6rem;
 
+    outline: none;
+
     padding-left: 1rem;
     padding-right: 0.8rem;
 
@@ -19,7 +21,7 @@ export const Container = styled.div`
     margin-bottom: 1.2rem;
 
     &:focus {
-      border: none;
+      border-color: var(--primary-purple);
     }
   }
 `;

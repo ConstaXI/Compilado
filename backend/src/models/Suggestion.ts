@@ -9,8 +9,8 @@ import {
 import { v4 } from "uuid";
 import User from "./User";
 
-@Entity("sugestions")
-export default class Sugestion {
+@Entity("suggestions")
+export default class Suggestion {
   @PrimaryColumn()
   readonly id: string;
 

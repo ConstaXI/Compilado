@@ -1,12 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export default class CreateSuggestion1624126147061
-  implements MigrationInterface
-{
+export default class CreateVotes1624147769161 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "suggestions",
+        name: "votes",
         columns: [
           {
             name: "id",
@@ -14,32 +12,28 @@ export default class CreateSuggestion1624126147061
             isPrimary: true,
           },
           {
-            name: "text",
-            type: "varchar",
-          },
-          {
-            name: "votes",
-            type: "integer",
-          },
-          {
-            name: "user_name",
-            type: "varchar",
+            name: "suggestion_id",
+            type: "uuid",
           },
           {
             name: "user_id",
             type: "uuid",
           },
-          {
-            name: "created_at",
-            type: "timestamp"
-          }
         ],
         foreignKeys: [
           {
-            name: "SuggestionUser",
+            name: "UsersVotes",
             referencedTableName: "users",
             referencedColumnNames: ["id"],
             columnNames: ["user_id"],
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+          },
+          {
+            name: "SuggetionsVotes",
+            referencedTableName: "suggestions",
+            referencedColumnNames: ["id"],
+            columnNames: ["suggestion_id"],
             onDelete: "CASCADE",
             onUpdate: "CASCADE",
           },
@@ -49,6 +43,6 @@ export default class CreateSuggestion1624126147061
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable("suggestions");
+    await queryRunner.dropTable("votes");
   }
 }
