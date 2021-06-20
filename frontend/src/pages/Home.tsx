@@ -31,7 +31,7 @@ interface IMessage {
   message: string;
   created_at: string;
   user_id: string;
-  user_name: string;
+  user_name: string
 }
 
 interface ISuggestion {
@@ -101,22 +101,34 @@ const Home: React.FC = () => {
     }
   }, [user.id]);
 
-  const upVote = useCallback((suggestion: ISuggestion) => {
-    api.post('/suggestions/up', {
-      suggestion_id: suggestion.id,
-      user_id: user.id,
-    }).then(() => {
-      api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
-    });
+  const upVote = useCallback(async (suggestion: ISuggestion) => {
+    const hasVoted = await api.get<boolean>(`/votes/${user.id}&${suggestion.id}`).then((response) => response.data);
+
+    if (hasVoted) {
+      alert('Você já votou');
+    } else {
+      api.post('/suggestions/up', {
+        suggestion_id: suggestion.id,
+        user_id: user.id,
+      }).then(() => {
+        api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
+      });
+    }
   }, [user]);
 
-  const downVote = useCallback((suggestion: ISuggestion) => {
-    api.post('/suggestions/down', {
-      suggestion_id: suggestion.id,
-      user_id: user.id,
-    }).then(() => {
-      api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
-    });
+  const downVote = useCallback(async (suggestion: ISuggestion) => {
+    const hasVoted = await api.get<boolean>(`/votes/${user.id}&${suggestion.id}`).then((response) => response.data);
+
+    if (hasVoted) {
+      alert('Você já votou');
+    } else {
+      api.post('/suggestions/down', {
+        suggestion_id: suggestion.id,
+        user_id: user.id,
+      }).then(() => {
+        api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
+      });
+    }
   }, [user]);
 
   return (

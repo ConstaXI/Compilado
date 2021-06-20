@@ -18,4 +18,12 @@ export default class VotesRepository implements IVotesRepository {
 
     return vote;
   }
+
+  public async findByUserID(user_id: string, suggestion_id: string): Promise<Vote | undefined> {
+    const vote = await this.ormRepository.findOne({
+      where: { user_id, suggestion_id }
+    });
+
+    return vote;
+  }
 }
