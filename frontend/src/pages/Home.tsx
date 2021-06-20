@@ -81,6 +81,16 @@ const Home: React.FC = () => {
       await api.post('/messages', {
         message: data.message,
         user_id: user.id,
+      }).then(() => {
+        api.get<IMessage[]>('messages').then((response) => {
+          setMessages(response.data.map((single_message) => ({
+            ...single_message,
+            created_at: format(
+              parseISO(single_message.created_at),
+              'dd/MM/yyyy',
+            ),
+          })));
+        });
       });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -89,12 +99,14 @@ const Home: React.FC = () => {
         formRef.current?.setErrors(errors);
       }
     }
-  }, [user]);
+  }, [user.id]);
 
   const upVote = useCallback((suggestion: ISuggestion) => {
     api.post('/suggestions/up', {
       suggestion_id: suggestion.id,
       user_id: user.id,
+    }).then(() => {
+      api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
     });
   }, [user]);
 
@@ -102,6 +114,8 @@ const Home: React.FC = () => {
     api.post('/suggestions/down', {
       suggestion_id: suggestion.id,
       user_id: user.id,
+    }).then(() => {
+      api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
     });
   }, [user]);
 
