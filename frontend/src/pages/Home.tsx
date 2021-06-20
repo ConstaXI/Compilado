@@ -62,9 +62,36 @@ const Home: React.FC = () => {
         ),
       })));
     });
-
-    console.log('information loaded');
   }, []);
+
+  const handleSendSuggestion = useCallback(async (data: ISuggestion) => {
+    try {
+      formRef.current?.setErrors({});
+
+      const schema = Yup.object().shape({
+        text: Yup.string().required('Não vai enviar nada?'),
+      });
+
+      console.dir(data);
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      await api.post('/suggestions', {
+        user_id: user.id,
+        text: data.text,
+      }).then(() => {
+        api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
+      });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(error);
+
+        formRef.current?.setErrors(errors);
+      }
+    }
+  }, [user.id]);
 
   const handleSendMessage = useCallback(async (data: IMessage) => {
     try {
@@ -186,8 +213,14 @@ const Home: React.FC = () => {
       </People>
       <Compilado>
         <h1 className="Compilado">Compilado_</h1>
+        <br />
         <Form onSubmit={handleSendMessage}>
           <Input name="message" placeholder="me deixe uma mensagem!" />
+          <Button name="Enviar" type="submit" />
+        </Form>
+        <br />
+        <Form onSubmit={handleSendSuggestion}>
+          <Input name="text" placeholder="me deixe uma sugestão!" />
           <Button name="Enviar" type="submit" />
         </Form>
         <button name="LogOut" type="button" onClick={signOut}>
