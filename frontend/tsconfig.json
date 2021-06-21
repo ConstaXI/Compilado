@@ -8,10 +8,14 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
+      "es6",
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
@@ -22,5 +26,8 @@
   },
   "include": [
     "src"
+  ],
+  "files": [
+    "src/styles/styled.d.ts"
   ]
 }

@@ -16,7 +16,7 @@ export const ButtonContainer = styled.div`
     height: 1rem;
 
     border: 4px solid var(--primary-purple);
-    background-color: white;
+    background-color: transparent;
 
     transition: 0.2s;
 

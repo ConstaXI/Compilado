@@ -20,6 +20,8 @@ export const Container = styled.div`
 
     margin-bottom: 1.2rem;
 
+    background-color: transparent;
+
     &:focus {
       border-color: var(--primary-purple);
     }

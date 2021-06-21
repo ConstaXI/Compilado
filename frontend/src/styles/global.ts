@@ -11,14 +11,20 @@ export default createGlobalStyle`
         --green: #00FF00;
         --red: #FF0000;
 
-        --primary-purple: #5E6EFF;
-        --secondary-purple: #8894FF;
+        --primary-purple: #782BB7;
+        --secondary-purple: #AA6BDE;
 
         --grey-50: #F7F8FA;
         --grey-100: #E6E8EB;
         --grey-200: #AFB2B1;
         --grey-500: #808080;
         --grey-800: #494D4B;
+
+        --raisin-back: #1F1D20;
+        --onyx: #414141;
+
+        --cultured: #EFEFEF;
+        --light-grey: #D6D6D6;
     }
 
     ::-webkit-scrollbar {
@@ -46,15 +52,21 @@ export default createGlobalStyle`
         }
     }
 
+    body {
+        background: ${(props) => props.theme.colors.primary_background};
+
+        h1, h2, h3, h4, h5, h6, p, input::placeholder, strong {
+            color: ${(props) => props.theme.colors.text};
+        }
+    }
+
     body, input, textarea, button {
         font: 500 1rem Poppins, sans-serif;
-        color: var(--grey-500);
     }
 
     h1, h2, h3, h4, h5, h6 {
         font-weight: 600;
         font-family: Poppins, sans-serif;
-        color: var(--grey-800);
     }
 
     h1 {

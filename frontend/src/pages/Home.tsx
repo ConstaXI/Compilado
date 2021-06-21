@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 /* eslint-disable import/no-unresolved */
 import React, {
   useCallback, useEffect, useRef, useState,
@@ -18,10 +17,11 @@ import {
   PerfilContainer,
   PerfilHeader,
   PerfilText,
-  Sugestion,
+  Suggestion,
   SugestionArrows,
-  Sugestions,
+  Suggestions,
   SugestionText,
+  Vote,
 } from '../styles/pages/Home';
 import { Button } from '../components/Button';
 import api from '../services/api';
@@ -71,8 +71,6 @@ const Home: React.FC = () => {
       const schema = Yup.object().shape({
         text: Yup.string().required('Não vai enviar nada?'),
       });
-
-      console.dir(data);
 
       await schema.validate(data, {
         abortEarly: false,
@@ -160,31 +158,33 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      <Sugestions>
+      <Suggestions>
         <h1>Sugestões</h1>
         <p>Aqui ficam suas sugestões de inutilidades!</p>
         {suggestions.length > 0 ? (
           suggestions.map((suggestion) => (
-            <Sugestion>
+            <Suggestion>
               <SugestionText>
                 <h3>{suggestion.user_name}</h3>
                 <p>{suggestion.text}</p>
               </SugestionText>
-              <SugestionArrows>
-                <button type="button" onClick={() => upVote(suggestion)}>
-                  <IoMdArrowRoundUp size={40} color="var(--green)" />
-                </button>
-                <button type="button" onClick={() => downVote(suggestion)}>
-                  <IoMdArrowRoundDown size={40} color="red" />
-                </button>
-              </SugestionArrows>
-              <h2>{suggestion.votes}</h2>
-            </Sugestion>
+              <Vote>
+                <SugestionArrows>
+                  <button type="button" onClick={() => upVote(suggestion)}>
+                    <IoMdArrowRoundUp size={40} color="var(--green)" />
+                  </button>
+                  <button type="button" onClick={() => downVote(suggestion)}>
+                    <IoMdArrowRoundDown size={40} color="red" />
+                  </button>
+                </SugestionArrows>
+                <h2>{suggestion.votes}</h2>
+              </Vote>
+            </Suggestion>
           ))
         ) : (
           <p>Ainda não há sugestões</p>
         )}
-      </Sugestions>
+      </Suggestions>
       <People>
         <PerfilHeader>
           <IoIosSend size={48} color="var(--primary-purple)" />
@@ -213,12 +213,10 @@ const Home: React.FC = () => {
       </People>
       <Compilado>
         <h1 className="Compilado">Compilado_</h1>
-        <br />
         <Form onSubmit={handleSendMessage}>
           <Input name="message" placeholder="me deixe uma mensagem!" />
           <Button name="Enviar" type="submit" />
         </Form>
-        <br />
         <Form onSubmit={handleSendSuggestion}>
           <Input name="text" placeholder="me deixe uma sugestão!" />
           <Button name="Enviar" type="submit" />

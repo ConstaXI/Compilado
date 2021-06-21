@@ -6,6 +6,7 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   max-height: 100vh;
+  justify-content: space-space-around;
 
   button {
     border: none;
@@ -25,17 +26,16 @@ export const Compilado = styled.div`
   padding-left: 24px;
 
   .Compilado {
-    font-size: 6em;
+    font-size: 4em;
     color: var(--primary-purple);
   }
 
   button {
-    padding-top: 32px;
+    background-color: transparent;
   }
 `;
 
 export const People = styled.div`
-  width: 25vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,8 +94,8 @@ export const PerfilContainer = styled.div`
   width: 100%;
 `;
 
-export const Sugestions = styled.div`
-  width: 30vw;
+export const Suggestions = styled.div`
+  width: 35vw;
 
   display: flex;
   flex-direction: column;
@@ -105,13 +105,22 @@ export const Sugestions = styled.div`
   height: 100vh;
 `;
 
-export const Sugestion = styled.div`
+export const Vote = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
 
-  padding: 16px;
-  margin: 24px;
+export const Suggestion = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 90%;
+
+  padding: 0 24px;
+  margin: 18px;
 
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
@@ -126,4 +135,8 @@ export const SugestionText = styled.div`
 export const SugestionArrows = styled.div`
   display: flex;
   flex-direction: column;
+
+  button {
+    background-color: transparent;
+  }
 `;
