@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React, { useState } from 'react';
-import { Switch } from '@material-ui/core';
+import Switch from 'react-switch';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
 import Global from './styles/global';
 import Routes from './routes/index';
@@ -13,20 +13,17 @@ const App: React.FC = () => {
   const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light);
   const [check, setCheck] = useState(false);
 
-  const toggleTheme = () => {
-    setTheme(theme.title === 'light' ? dark : light);
-  };
-
   const toggleCheck = () => {
     setCheck(!check);
+    setTheme(theme.title === 'light' ? dark : light);
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Switch
         onClick={toggleCheck}
-        onChange={toggleTheme}
-        checked={check}
+        onChange={toggleCheck}
+        checked={theme.title === 'light'}
       />
       <AuthProvider>
         <Routes />

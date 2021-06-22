@@ -11,8 +11,6 @@ function usePersistedState<T>(key: string, initialState: T): Response<T> {
   const [state, setState] = useState(() => {
     const storageValue = localStorage.getItem(key);
 
-    console.log(`key: ${key}`);
-
     if (storageValue) {
       return JSON.parse(storageValue);
     }
