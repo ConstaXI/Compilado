@@ -51,7 +51,11 @@ const Home: React.FC = () => {
   const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
 
   useEffect(() => {
-    api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
+    api.get<ISuggestion[]>('suggestions').then((response) => {
+      response.data.sort((a, b) => b.votes - a.votes);
+
+      setSuggestions(response.data);
+    });
 
     api.get<IMessage[]>('messages').then((response) => {
       setMessages(response.data.map((single_message) => ({
@@ -80,7 +84,11 @@ const Home: React.FC = () => {
         user_id: user.id,
         text: data.text,
       }).then(() => {
-        api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
+        api.get<ISuggestion[]>('suggestions').then((response) => {
+          response.data.sort((a, b) => b.votes - a.votes);
+
+          setSuggestions(response.data);
+        });
       });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -136,7 +144,11 @@ const Home: React.FC = () => {
         suggestion_id: suggestion.id,
         user_id: user.id,
       }).then(() => {
-        api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
+        api.get<ISuggestion[]>('suggestions').then((response) => {
+          response.data.sort((a, b) => b.votes - a.votes);
+
+          setSuggestions(response.data);
+        });
       });
     }
   }, [user]);
@@ -151,7 +163,11 @@ const Home: React.FC = () => {
         suggestion_id: suggestion.id,
         user_id: user.id,
       }).then(() => {
-        api.get<ISuggestion[]>('suggestions').then((response) => setSuggestions(response.data));
+        api.get<ISuggestion[]>('suggestions').then((response) => {
+          response.data.sort((a, b) => b.votes - a.votes);
+
+          setSuggestions(response.data);
+        });
       });
     }
   }, [user]);

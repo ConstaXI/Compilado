@@ -23,7 +23,13 @@ const App: React.FC = () => {
       <Switch
         onClick={toggleCheck}
         onChange={toggleCheck}
-        checked={theme.title === 'light'}
+        checked={theme.title === 'dark'}
+        onColor="#414141"
+        offColor="#D6D6F6"
+        onHandleColor="#782BB7"
+        offHandleColor="#782BB7"
+        checkedIcon={false}
+        uncheckedIcon={false}
       />
       <AuthProvider>
         <Routes />

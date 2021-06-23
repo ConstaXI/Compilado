@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   max-height: 100vh;
-  justify-content: space-space-around;
+  justify-content: space-around;
 
   button {
     border: none;
