@@ -1,10 +1,10 @@
 export default {
   title: 'light',
   colors: {
-    primary: 'var(--primary-purple)',
-    secondary: 'var(--secondary-purple)',
-    primary_background: 'var(--cultured)',
-    secondary_background: 'var(--light-grey)',
-    text: 'var(--raisin-black)',
+    primary: '#782BB7',
+    secondary: '#AA6BDE',
+    primary_background: '#EFEFFF',
+    secondary_background: '#D6D6F6',
+    text: '#1F1D20',
   },
 };

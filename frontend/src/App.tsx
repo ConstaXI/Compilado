@@ -8,6 +8,7 @@ import { AuthProvider } from './hooks/auth';
 import dark from './styles/themes/dark';
 import light from './styles/themes/light';
 import usePersistedState from './utils/usePersistedState';
+import { Header } from './components/Header';
 
 const App: React.FC = () => {
   const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light);
@@ -20,18 +21,20 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Switch
-        onClick={toggleCheck}
-        onChange={toggleCheck}
-        checked={theme.title === 'dark'}
-        onColor="#414141"
-        offColor="#D6D6F6"
-        onHandleColor="#782BB7"
-        offHandleColor="#782BB7"
-        checkedIcon={false}
-        uncheckedIcon={false}
-      />
       <AuthProvider>
+        <Header>
+          <Switch
+            onClick={toggleCheck}
+            onChange={toggleCheck}
+            checked={theme.title === 'dark'}
+            onColor="#414141"
+            offColor="#D6D6F6"
+            onHandleColor="#782BB7"
+            offHandleColor="#782BB7"
+            checkedIcon={false}
+            uncheckedIcon={false}
+          />
+        </Header>
         <Routes />
         <Global />
       </AuthProvider>

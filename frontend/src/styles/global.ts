@@ -20,11 +20,8 @@ export default createGlobalStyle`
         --grey-500: #808080;
         --grey-800: #494D4B;
 
-        --raisin-back: #1F1D20;
-        --onyx: #414141;
-
-        --cultured: #EFEFFF;
-        --light-grey: #D6D6F6;
+        --primary-background: ${(props) => props.theme.colors.primary_background};
+        --secondary-background: ${(props) => props.theme.colors.secondary_background};
     }
 
     ::-webkit-scrollbar {
@@ -53,7 +50,11 @@ export default createGlobalStyle`
     }
 
     body {
-        background: ${(props) => props.theme.colors.primary_background};
+        header {
+            background: var(--primary-background);
+        }
+
+        background: var(--primary-background);
 
         h1, h2, h3, h4, h5, h6, p, input::placeholder, strong {
             color: ${(props) => props.theme.colors.text};

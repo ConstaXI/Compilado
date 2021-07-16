@@ -1,16 +1,16 @@
 import styled, { keyframes } from 'styled-components';
 import { fadeInUp } from 'react-animations';
 
+const fadeInAnimation = keyframes`${fadeInUp}`;
+
 export const Container = styled.div`
-  height: 100vh;
+  height: 80vh;
   
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
-
-const fadeInAnimation = keyframes`${fadeInUp}`;
 
 export const Compilado = styled.div`
   display: flex;
