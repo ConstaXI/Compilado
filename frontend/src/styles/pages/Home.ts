@@ -1,5 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import { fadeInLeft } from 'react-animations';
+import { cssVar, lighten } from 'polished';
+
+const fadeInAnimation = keyframes`${fadeInLeft}`;
 
 export const Container = styled.div`
   display: flex;
@@ -66,19 +69,17 @@ export const PerfilHeader = styled.div`
   }
 `;
 
-const fadeInAnimation = keyframes`${fadeInLeft}`;
-
 export const Perfil = styled.div`
   display: flex;
   flex-direction: row;
 
-  &:hover {
-    background-color: var(--grey-50);
-  }
-
   animation: 1s ${fadeInAnimation};
 
   padding: 8px 16px;
+
+  &:hover {
+    background-color: ${lighten('0.05', cssVar('--primary-background', 'number')}
+  }
 `;
 
 export const PerfilText = styled.div`
